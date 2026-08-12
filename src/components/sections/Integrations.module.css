@@ -1,0 +1,208 @@
+/*
+ * НОВАЯ СЕКЦИЯ 2. Интеграции и этапы внедрения.
+ *
+ * Две смысловые части в одной секции: сетка карточек интеграций (плитка
+ * с иконкой из секции безопасности) и вертикальный степпер внедрения.
+ * Степпер сделан вертикальным намеренно — горизонтальная лента уже занята
+ * роадмапом, повторять её было бы дублированием.
+ */
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: calc(20 * var(--du));
+}
+
+.tools {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: calc(20 * var(--du));
+}
+
+.tool {
+  display: flex;
+  align-items: center;
+  gap: calc(16 * var(--du));
+  padding: calc(20 * var(--du));
+  background: var(--surface);
+  border-radius: var(--r-tile);
+  transition:
+    transform var(--dur-fast) var(--ease),
+    box-shadow var(--dur-fast) var(--ease);
+}
+
+@media (hover: hover) {
+  .tool:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-pill);
+  }
+}
+
+.toolText {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: calc(2 * var(--du));
+}
+
+.toolLabel {
+  color: var(--text);
+  font-size: calc(16 * var(--du));
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: calc(-0.5 * var(--du));
+}
+
+.toolNote {
+  color: var(--text-secondary);
+  font-size: calc(14 * var(--du));
+  font-weight: 500;
+  line-height: 1.4286;
+}
+
+/* ---------- степпер ---------- */
+
+.steps {
+  display: flex;
+  flex-direction: column;
+}
+
+.step {
+  position: relative;
+  display: grid;
+  grid-template-columns: calc(48 * var(--du)) minmax(0, 1fr) auto;
+  gap: calc(24 * var(--du));
+  align-items: start;
+  padding-block: calc(24 * var(--du));
+  border-bottom: 1px solid var(--divider);
+}
+
+.step:last-child {
+  border-bottom: 0;
+}
+
+.number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(48 * var(--du));
+  height: calc(48 * var(--du));
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  color: var(--text);
+  font-size: calc(18 * var(--du));
+  font-weight: 800;
+  line-height: 1.08;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Линия, соединяющая номера шагов. */
+.step:not(:last-child) .number::after {
+  content: '';
+  position: absolute;
+  top: calc(72 * var(--du));
+  left: calc(24 * var(--du));
+  width: 1px;
+  height: calc(100% - calc(72 * var(--du)));
+  background: var(--stroke-strong);
+}
+
+.stepBody {
+  display: flex;
+  flex-direction: column;
+  gap: calc(6 * var(--du));
+  padding-top: calc(8 * var(--du));
+}
+
+.stepTitle {
+  color: var(--text);
+  font-size: calc(20 * var(--du));
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: calc(-0.5 * var(--du));
+}
+
+.stepText {
+  max-width: calc(720 * var(--du));
+  color: var(--text-secondary);
+  font-size: calc(16 * var(--du));
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.duration {
+  align-self: center;
+  padding: calc(8 * var(--du)) calc(16 * var(--du));
+  border: 1px solid var(--stroke);
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  color: var(--text-secondary);
+  font-size: calc(14 * var(--du));
+  font-weight: 500;
+  line-height: 1.4286;
+  white-space: nowrap;
+}
+
+@media (max-width: 1023px) {
+  .tools {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: calc(16 * var(--du));
+  }
+
+  .step {
+    grid-template-columns: calc(44 * var(--du)) minmax(0, 1fr);
+    gap: calc(16 * var(--du));
+  }
+
+  .number {
+    width: calc(44 * var(--du));
+    height: calc(44 * var(--du));
+    font-size: calc(16 * var(--du));
+  }
+
+  .step:not(:last-child) .number::after {
+    top: calc(64 * var(--du));
+    left: calc(22 * var(--du));
+    height: calc(100% - calc(64 * var(--du)));
+  }
+
+  .duration {
+    grid-column: 2;
+    align-self: start;
+    justify-self: start;
+  }
+}
+
+@media (max-width: 767px) {
+  .tools {
+    grid-template-columns: 1fr;
+    gap: calc(12 * var(--du));
+  }
+
+  .tool {
+    padding: calc(16 * var(--du));
+    gap: calc(12 * var(--du));
+  }
+
+  .toolLabel {
+    font-size: calc(15 * var(--du));
+  }
+
+  .step {
+    padding-block: calc(20 * var(--du));
+  }
+
+  .stepTitle {
+    font-size: calc(17 * var(--du));
+  }
+
+  .stepText {
+    font-size: calc(14 * var(--du));
+    line-height: 1.4286;
+  }
+
+  .duration {
+    padding: calc(6 * var(--du)) calc(12 * var(--du));
+    font-size: max(12px, calc(13 * var(--du)));
+  }
+}

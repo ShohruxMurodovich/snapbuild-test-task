@@ -1,0 +1,193 @@
+/*
+ * Первый экран: карточка с «авророй» (градиент 157deg из дизайн-системы),
+ * заголовок 76/600 и скриншот приложения, вплотную приклеенный к низу карточки.
+ * Появление повторяет исходник: текст проявляется 1800ms, CTA 1100ms с
+ * задержкой 420ms, медиа выезжает снизу с масштабом 0.975.
+ */
+
+.hero {
+  padding: 12px;
+  background: var(--bg);
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  background-color: var(--surface);
+  background-image: var(--aurora-hero);
+}
+
+.inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: calc(108 * var(--du)) calc(40 * var(--du)) 0;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin-top: 16px;
+}
+
+.heading {
+  display: flex;
+  min-height: 260px;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  animation: copyFade 1800ms var(--ease) 160ms both;
+}
+
+.title {
+  max-width: calc(984 * var(--du));
+  color: var(--text);
+  font-size: calc(76 * var(--du));
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  text-align: center;
+}
+
+.subtitle {
+  max-width: calc(760 * var(--du));
+  color: var(--text-tertiary);
+  font-size: calc(18 * var(--du));
+  font-weight: 500;
+  line-height: calc(24 / 18);
+  text-align: center;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(14 * var(--du)) calc(22 * var(--du));
+  border-radius: var(--r-control);
+  background: var(--surface);
+  font-size: calc(14 * var(--du));
+  font-weight: 600;
+  line-height: calc(20 / 14);
+  animation: copyFade 1100ms var(--ease) 420ms both;
+  transition:
+    transform var(--dur-fast) ease,
+    box-shadow var(--dur-fast) ease;
+}
+
+@media (hover: hover) {
+  .cta:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-pill);
+  }
+}
+
+.media {
+  width: 100%;
+  margin-top: calc(20 * var(--du));
+  animation: mediaEnter 1100ms var(--ease) 220ms both;
+}
+
+.shot {
+  width: 100%;
+  aspect-ratio: 2632 / 1386;
+  object-fit: cover;
+  border-radius: var(--r-card) var(--r-card) 0 0;
+}
+
+@keyframes copyFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes mediaEnter {
+  from {
+    opacity: 0;
+    transform: translateY(46px) scale(0.975);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 1023px) {
+  .inner {
+    padding: calc(80 * var(--du)) calc(24 * var(--du)) 0;
+  }
+
+  .heading {
+    min-height: 0;
+    gap: calc(12 * var(--du));
+  }
+
+  .title {
+    max-width: none;
+    font-size: calc(56 * var(--du));
+    line-height: 1.1;
+  }
+
+  .subtitle {
+    max-width: calc(600 * var(--du));
+    font-size: calc(18 * var(--du));
+  }
+}
+
+@media (max-width: 767px) {
+  .hero {
+    padding: 0;
+  }
+
+  .card {
+    border-radius: 0;
+  }
+
+  .inner {
+    padding: calc(88 * var(--du)) 0 0;
+  }
+
+  .intro {
+    width: 100%;
+    margin-top: 0;
+    padding-inline: calc(16 * var(--du));
+    gap: calc(24 * var(--du));
+  }
+
+  .heading {
+    gap: calc(12 * var(--du));
+  }
+
+  .title {
+    font-size: calc(36 * var(--du));
+    line-height: 1.1;
+  }
+
+  .subtitle {
+    max-width: none;
+    font-size: calc(14 * var(--du));
+    line-height: calc(20 / 14);
+  }
+
+  .cta {
+    padding: calc(12 * var(--du)) calc(16 * var(--du));
+    font-size: calc(14 * var(--du));
+  }
+
+  .media {
+    width: calc(100% - calc(32 * var(--du)));
+    margin-inline: auto;
+    margin-top: calc(32 * var(--du));
+  }
+
+  .shot {
+    border-radius: 6px 6px 0 0;
+  }
+}

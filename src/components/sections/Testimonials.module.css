@@ -1,0 +1,215 @@
+/*
+ * НОВАЯ СЕКЦИЯ 4. Отзывы — слайдер.
+ *
+ * Один большой слайд в белой карточке (радиус 24 из дизайн-системы),
+ * метрика вынесена в пилюлю с градиентным текстом. Управление: стрелки,
+ * точки, клавиши ←/→, свайп мышью и пальцем; автопрокрутка останавливается
+ * на ховере, фокусе и при prefers-reduced-motion.
+ */
+
+.carousel {
+  display: flex;
+  flex-direction: column;
+  gap: calc(24 * var(--du));
+}
+
+.viewport {
+  overflow: hidden;
+  border-radius: var(--r-card);
+  touch-action: pan-y;
+}
+
+.track {
+  display: flex;
+  transition: transform 520ms var(--ease);
+}
+
+.slide {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+.card {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: calc(32 * var(--du));
+  min-height: calc(240 * var(--du));
+  padding: calc(40 * var(--du));
+  background: var(--surface);
+  border-radius: var(--r-card);
+}
+
+.quote {
+  margin: 0;
+  max-width: calc(1000 * var(--du));
+  color: var(--text);
+  font-size: calc(28 * var(--du));
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: calc(-0.5 * var(--du));
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(20 * var(--du));
+}
+
+.author {
+  display: flex;
+  flex-direction: column;
+  gap: calc(2 * var(--du));
+}
+
+.name {
+  color: var(--text);
+  font-size: calc(16 * var(--du));
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.role {
+  color: var(--text-secondary);
+  font-size: calc(14 * var(--du));
+  font-weight: 500;
+  line-height: 1.4286;
+}
+
+.metric {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(8 * var(--du));
+  padding: calc(8 * var(--du)) calc(16 * var(--du));
+  border: 1px solid var(--stroke);
+  border-radius: var(--r-pill);
+  background: var(--surface-sunken);
+  font-size: calc(14 * var(--du));
+  font-weight: 600;
+  line-height: 1.4286;
+  white-space: nowrap;
+}
+
+.metricIcon {
+  display: flex;
+  width: calc(16 * var(--du));
+  height: calc(16 * var(--du));
+  color: #ff6ba7;
+}
+
+/* ---------- управление ---------- */
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(16 * var(--du));
+}
+
+.dots {
+  display: flex;
+  align-items: center;
+  gap: calc(8 * var(--du));
+}
+
+.dot {
+  width: calc(8 * var(--du));
+  height: calc(8 * var(--du));
+  border-radius: 50%;
+  background: var(--stroke-strong);
+  transition:
+    width var(--dur-fast) var(--ease),
+    background var(--dur-fast) ease;
+}
+
+.dotActive {
+  width: calc(24 * var(--du));
+  border-radius: var(--r-pill);
+  background: var(--brand-flat);
+}
+
+.arrows {
+  display: flex;
+  gap: calc(8 * var(--du));
+}
+
+.arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(44 * var(--du));
+  height: calc(44 * var(--du));
+  min-width: 40px;
+  min-height: 40px;
+  border: 1px solid var(--stroke-strong);
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  color: var(--text);
+  transition:
+    background-color var(--dur-fast) ease,
+    border-color var(--dur-fast) ease,
+    transform var(--dur-fast) ease;
+}
+
+.arrow svg {
+  width: calc(20 * var(--du));
+  height: calc(20 * var(--du));
+  min-width: 18px;
+  min-height: 18px;
+}
+
+.arrowPrev svg {
+  transform: rotate(180deg);
+}
+
+@media (hover: hover) {
+  .arrow:hover {
+    background: var(--surface-sunken);
+    transform: translateY(-1px);
+  }
+}
+
+@media (max-width: 1023px) {
+  .card {
+    min-height: calc(300 * var(--du));
+    padding: calc(28 * var(--du));
+    gap: calc(24 * var(--du));
+  }
+
+  .quote {
+    font-size: calc(20 * var(--du));
+  }
+}
+
+@media (max-width: 767px) {
+  .card {
+    min-height: 0;
+    padding: calc(20 * var(--du));
+    border-radius: var(--r-tile);
+    gap: calc(20 * var(--du));
+  }
+
+  .quote {
+    font-size: calc(17 * var(--du));
+    line-height: 1.4;
+    letter-spacing: 0;
+  }
+
+  .meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: calc(12 * var(--du));
+  }
+
+  .metric {
+    order: -1;
+    padding: calc(6 * var(--du)) calc(12 * var(--du));
+    font-size: max(12px, calc(13 * var(--du)));
+  }
+
+  .viewport {
+    border-radius: var(--r-tile);
+  }
+}

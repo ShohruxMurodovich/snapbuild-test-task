@@ -1,0 +1,78 @@
+/*
+ * Карточка «картинка + заголовок + текст». В исходнике этот паттерн
+ * используется дважды — в «Одна платформа — весь маркетинг» и в
+ * «Безопасность без компромиссов»; отличается только пропорция картинки,
+ * поэтому она приходит переменной --card-aspect от секции.
+ */
+
+.card {
+  display: flex;
+  flex-direction: column;
+}
+
+.media {
+  width: 100%;
+  aspect-ratio: var(--card-aspect, 4 / 3);
+  object-fit: cover;
+  background: var(--surface);
+  border-radius: var(--r-tile);
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: calc(8 * var(--du));
+  padding-top: 16px;
+}
+
+.title {
+  color: var(--text);
+  font-size: calc(24 * var(--du));
+  font-weight: 500;
+  line-height: 1.3334;
+  letter-spacing: calc(-1 * var(--du));
+}
+
+.text {
+  color: var(--text-secondary);
+  font-size: calc(16 * var(--du));
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+@media (max-width: 1023px) {
+  .media {
+    border-radius: calc(12 * var(--du));
+  }
+
+  .copy {
+    padding-top: calc(16 * var(--du));
+  }
+
+  .title {
+    font-size: calc(20 * var(--du));
+    line-height: calc(28 / 20);
+    letter-spacing: calc(-0.5 * var(--du));
+  }
+}
+
+@media (max-width: 767px) {
+  .media {
+    border-radius: 6px;
+  }
+
+  .copy {
+    padding-top: calc(12 * var(--du));
+  }
+
+  .title {
+    font-size: calc(16 * var(--du));
+    line-height: calc(22 / 16);
+    letter-spacing: 0;
+  }
+
+  .text {
+    font-size: calc(14 * var(--du));
+    line-height: calc(20 / 14);
+  }
+}

@@ -1,0 +1,354 @@
+/*
+ * НОВАЯ СЕКЦИЯ 5. Форма заявки на демо.
+ *
+ * Слева — текст и аргументы, справа — карточка формы. Поля собраны по токенам
+ * инпутов исходника (радиус 20, рамка neutral-300, фокус — primary-400),
+ * ошибки показываются под полем и связаны с ним через aria-describedby.
+ * Реальной отправки нет: сабмит имитируется и переводит карточку в состояние
+ * «успешно».
+ */
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, calc(620 * var(--du)));
+  gap: calc(48 * var(--du));
+  align-items: start;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: calc(24 * var(--du));
+}
+
+.bullets {
+  display: flex;
+  flex-direction: column;
+  gap: calc(12 * var(--du));
+}
+
+.bullet {
+  display: flex;
+  align-items: flex-start;
+  gap: calc(12 * var(--du));
+  color: var(--text-secondary);
+  font-size: calc(16 * var(--du));
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.bulletIcon {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: calc(24 * var(--du));
+  height: calc(24 * var(--du));
+  border-radius: 50%;
+  background: var(--pastel);
+  color: var(--text);
+}
+
+.bulletIcon svg {
+  width: calc(16 * var(--du));
+  height: calc(16 * var(--du));
+}
+
+.contact {
+  color: var(--text-secondary);
+  font-size: calc(14 * var(--du));
+  font-weight: 500;
+  line-height: 1.4286;
+}
+
+.contact a {
+  color: var(--text);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---------- карточка формы ---------- */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: calc(20 * var(--du));
+  padding: calc(32 * var(--du));
+  background: var(--surface);
+  border-radius: var(--r-card);
+}
+
+.cardTitle {
+  color: var(--text);
+  font-size: calc(20 * var(--du));
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: calc(-0.5 * var(--du));
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: calc(16 * var(--du));
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: calc(6 * var(--du));
+}
+
+.label {
+  color: var(--text-secondary);
+  font-size: calc(14 * var(--du));
+  font-weight: 500;
+  line-height: 1.4286;
+}
+
+.required {
+  color: var(--text-tertiary);
+}
+
+.control {
+  width: 100%;
+  padding: calc(14 * var(--du)) calc(16 * var(--du));
+  border: 1px solid var(--stroke-strong);
+  border-radius: calc(16 * var(--du));
+  background: var(--surface);
+  color: var(--text);
+  font-size: calc(16 * var(--du));
+  font-weight: 500;
+  line-height: 1.5;
+  transition:
+    border-color var(--dur-fast) ease,
+    box-shadow var(--dur-fast) ease;
+  appearance: none;
+}
+
+.control::placeholder {
+  color: var(--text-tertiary);
+}
+
+.control:hover {
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+.control:focus {
+  outline: none;
+  border-color: #ffa4b6;
+  box-shadow: 0 0 0 3px rgba(255, 164, 182, 0.25);
+}
+
+.controlError,
+.controlError:focus {
+  border-color: var(--error);
+  background: var(--error-bg);
+  box-shadow: none;
+}
+
+textarea.control {
+  min-height: calc(96 * var(--du));
+  resize: vertical;
+}
+
+select.control {
+  /* Своя стрелка вместо системной, чтобы поле совпадало с инпутами. */
+  padding-right: calc(44 * var(--du));
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='m10 13-5-5h10l-5 5Z' fill='%235A5B62'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right calc(14 * var(--du)) center;
+  background-size: calc(20 * var(--du));
+  cursor: pointer;
+}
+
+.error {
+  color: var(--error);
+  font-size: max(12px, calc(13 * var(--du)));
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.hint {
+  color: var(--text-tertiary);
+  font-size: max(12px, calc(13 * var(--du)));
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.consent {
+  display: flex;
+  align-items: flex-start;
+  gap: calc(12 * var(--du));
+  color: var(--text-secondary);
+  font-size: calc(14 * var(--du));
+  font-weight: 500;
+  line-height: 1.4286;
+  cursor: pointer;
+}
+
+.checkbox {
+  position: relative;
+  flex: 0 0 auto;
+  width: calc(22 * var(--du));
+  height: calc(22 * var(--du));
+  margin-top: calc(1 * var(--du));
+  border: 1px solid var(--stroke-strong);
+  border-radius: calc(6 * var(--du));
+  background: var(--surface);
+  transition:
+    border-color var(--dur-fast) ease,
+    background var(--dur-fast) ease;
+}
+
+.checkboxInput {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.checkboxInput:focus-visible + .checkbox {
+  outline: 2px solid #ff6ba7;
+  outline-offset: 2px;
+}
+
+.checkboxInput:checked + .checkbox {
+  border-color: transparent;
+  background: var(--brand-flat);
+}
+
+.checkboxInput:checked + .checkbox::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: calc(11 * var(--du));
+  height: calc(6 * var(--du));
+  border: solid #fff;
+  border-width: 0 0 2px 2px;
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.checkboxError .checkbox {
+  border-color: var(--error);
+}
+
+.submit {
+  width: 100%;
+  padding-block: calc(16 * var(--du));
+}
+
+.note {
+  color: var(--text-tertiary);
+  font-size: max(12px, calc(13 * var(--du)));
+  font-weight: 500;
+  line-height: 1.4;
+  text-align: center;
+}
+
+/* ---------- состояние «отправлено» ---------- */
+
+.success {
+  display: flex;
+  min-height: calc(360 * var(--du));
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: calc(16 * var(--du));
+  padding: calc(40 * var(--du));
+  background: var(--surface);
+  border-radius: var(--r-card);
+  text-align: center;
+  animation: successIn 420ms var(--ease) both;
+}
+
+.successIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(64 * var(--du));
+  height: calc(64 * var(--du));
+  border-radius: 50%;
+  background: var(--pastel);
+  color: var(--text);
+}
+
+.successIcon svg {
+  width: calc(32 * var(--du));
+  height: calc(32 * var(--du));
+}
+
+.successTitle {
+  color: var(--text);
+  font-size: calc(24 * var(--du));
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: calc(-0.5 * var(--du));
+}
+
+.successText {
+  max-width: calc(420 * var(--du));
+  color: var(--text-secondary);
+  font-size: calc(16 * var(--du));
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+@keyframes successIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 1023px) {
+  .layout {
+    grid-template-columns: 1fr;
+    gap: calc(24 * var(--du));
+  }
+
+  .card {
+    padding: calc(24 * var(--du));
+  }
+
+  .success {
+    min-height: calc(320 * var(--du));
+    padding: calc(32 * var(--du));
+  }
+}
+
+@media (max-width: 767px) {
+  .row {
+    grid-template-columns: 1fr;
+  }
+
+  .card,
+  .success {
+    padding: calc(20 * var(--du));
+    border-radius: var(--r-tile);
+  }
+
+  .bullet {
+    font-size: calc(14 * var(--du));
+    line-height: 1.4286;
+  }
+
+  .control {
+    /* 16px, чтобы iOS не зумил поле при фокусе */
+    font-size: max(16px, calc(15 * var(--du)));
+    border-radius: calc(14 * var(--du));
+  }
+
+  .successTitle {
+    font-size: calc(20 * var(--du));
+  }
+
+  .successText {
+    font-size: calc(14 * var(--du));
+  }
+}

@@ -1,0 +1,269 @@
+/*
+ * Шапка исходника: фиксированная стеклянная «пилюля» шириной
+ * min(100% - 32px, 960px). Размеры здесь фиксированные в px — в исходнике
+ * шапка единственный блок, который не масштабируется вместе с макетом.
+ */
+
+.header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 100;
+  color: var(--text);
+}
+
+.bar {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  width: min(calc(100% - 32px), 960px);
+  min-height: 52px;
+  margin: 16px auto 0;
+  padding: 7px 9px 7px 14px;
+  border: 1px solid transparent;
+  border-radius: var(--r-panel);
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition:
+    border-color 300ms ease,
+    box-shadow 300ms ease,
+    background-color 300ms ease;
+}
+
+.barScrolled {
+  border-color: var(--stroke-soft);
+  box-shadow: var(--shadow-bar);
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+}
+
+.logo img {
+  width: auto;
+  height: 20px;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-self: center;
+}
+
+.link {
+  padding: 8px 10px;
+  border-radius: 9px;
+  color: var(--text);
+  font-size: 12px;
+  line-height: 1.4;
+  font-weight: 500;
+  white-space: nowrap;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-self: end;
+}
+
+.cta {
+  padding: 10px 20px;
+  border-radius: var(--r-control);
+  background: var(--text);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  transition:
+    background-color 180ms ease,
+    transform 180ms ease;
+}
+
+@media (hover: hover) {
+  .link:hover {
+    background: var(--stroke-soft);
+  }
+
+  .cta:hover {
+    background: #242424;
+    transform: translateY(-1px);
+  }
+}
+
+/* ---------- бургер и мобильное меню ---------- */
+
+.burger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  color: var(--text);
+}
+
+.burgerIcon {
+  position: relative;
+  display: block;
+  width: 20px;
+  height: 14px;
+  border-top: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transition: border-color 267ms var(--ease-control);
+}
+
+.burgerIcon::before,
+.burgerIcon::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 2px;
+  background: currentColor;
+  transform: translateY(-50%);
+  transition: transform 267ms var(--ease-control);
+}
+
+.burgerIcon::after {
+  opacity: 0;
+}
+
+.burgerOpen .burgerIcon {
+  border-color: transparent;
+}
+
+.burgerOpen .burgerIcon::before {
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.burgerOpen .burgerIcon::after {
+  opacity: 1;
+  transform: translateY(-50%) rotate(-45deg);
+}
+
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  padding: calc(104 * var(--du)) calc(20 * var(--du)) calc(20 * var(--du));
+  background: #fff;
+  overflow-y: auto;
+  animation: menuIn 140ms ease both;
+}
+
+.menuLink {
+  padding: calc(20 * var(--du)) 0;
+  border-bottom: 1px solid var(--stroke-strong);
+  color: var(--text);
+  font-size: calc(32 * var(--du));
+  line-height: calc(40 / 32);
+  font-weight: 500;
+  animation: menuItemIn 260ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.menuLink:nth-child(1) { animation-delay: 40ms; }
+.menuLink:nth-child(2) { animation-delay: 85ms; }
+.menuLink:nth-child(3) { animation-delay: 130ms; }
+.menuLink:nth-child(4) { animation-delay: 175ms; }
+.menuLink:nth-child(5) { animation-delay: 220ms; }
+
+.menuCta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(64 * var(--du));
+  margin-top: auto;
+  padding: calc(18 * var(--du)) calc(24 * var(--du));
+  border-radius: calc(12 * var(--du));
+  background: var(--text);
+  color: #fff;
+  font-size: calc(20 * var(--du));
+  font-weight: 600;
+  animation: menuCtaIn 280ms cubic-bezier(0.22, 1, 0.36, 1) 200ms both;
+}
+
+@keyframes menuIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes menuItemIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes menuCtaIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (max-width: 1023px) {
+  /* Навигация уходит в бургер, поэтому три колонки больше не нужны:
+     логотип и действия просто расходятся по краям. */
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .burger {
+    display: inline-flex;
+  }
+
+  .barOpen {
+    box-shadow: none;
+  }
+
+  .barOpen .cta {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@media (max-width: 767px) {
+  .bar {
+    width: calc(100% - 24px);
+    min-height: 50px;
+    margin-top: 12px;
+  }
+
+  .logo img {
+    height: 18px;
+  }
+
+  .cta {
+    min-height: 36px;
+    padding: 8px 14px;
+    border-radius: 11px;
+  }
+
+  .menu {
+    padding: calc(92 * var(--du)) calc(16 * var(--du)) calc(16 * var(--du));
+  }
+
+  .menuLink {
+    padding: calc(18 * var(--du)) 0;
+    font-size: calc(28 * var(--du));
+    line-height: calc(36 / 28);
+  }
+
+  .menuCta {
+    min-height: calc(60 * var(--du));
+    padding: calc(16 * var(--du)) calc(20 * var(--du));
+    font-size: calc(18 * var(--du));
+  }
+}

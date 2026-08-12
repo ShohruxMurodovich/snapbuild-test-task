@@ -1,0 +1,269 @@
+/*
+ * НОВАЯ СЕКЦИЯ 3. Тарифы.
+ *
+ * Переключатель периода собран по неиспользованному в лендинге компоненту
+ * дизайн-системы dds-btn-group (фон f5f5f7, радиус 16, активный сегмент —
+ * белый, бейдж скидки залит фирменным градиентом). Рекомендуемый тариф
+ * обведён пастельным градиентом — тем же приёмом, что колонка «снэпбилд»
+ * в таблице сравнения.
+ */
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: calc(16 * var(--du));
+}
+
+.group {
+  display: inline-flex;
+  align-items: center;
+  padding: calc(4 * var(--du));
+  border: 1px solid var(--stroke);
+  border-radius: var(--r-panel);
+  background: var(--surface-sunken);
+}
+
+.segment {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(8 * var(--du));
+  padding: calc(10 * var(--du)) calc(20 * var(--du));
+  border-radius: calc(12 * var(--du));
+  color: var(--text-secondary);
+  font-size: calc(14 * var(--du));
+  font-weight: 600;
+  line-height: 1.4286;
+  transition:
+    background-color var(--dur-fast) ease,
+    color var(--dur-fast) ease;
+}
+
+.segmentActive {
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow-pill);
+}
+
+.badge {
+  font-weight: 700;
+}
+
+.plans {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: calc(32 * var(--du));
+  align-items: start;
+}
+
+.plan {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  gap: calc(24 * var(--du));
+  padding: calc(32 * var(--du));
+  background: var(--surface);
+  border: calc(2 * var(--du)) solid transparent;
+  border-radius: var(--r-card);
+}
+
+.planTop {
+  display: flex;
+  flex-direction: column;
+  gap: calc(8 * var(--du));
+}
+
+.planHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(12 * var(--du));
+}
+
+.planName {
+  color: var(--text);
+  font-size: calc(20 * var(--du));
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: calc(-0.5 * var(--du));
+}
+
+.chip {
+  padding: calc(6 * var(--du)) calc(12 * var(--du));
+  border: 1px solid var(--stroke);
+  border-radius: var(--r-pill);
+  font-size: max(12px, calc(12 * var(--du)));
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.planDescription {
+  color: var(--text-secondary);
+  font-size: calc(14 * var(--du));
+  font-weight: 500;
+  line-height: 1.4286;
+}
+
+.priceRow {
+  display: flex;
+  flex-direction: column;
+  gap: calc(4 * var(--du));
+  padding-bottom: calc(24 * var(--du));
+  border-bottom: 1px solid var(--divider);
+}
+
+.price {
+  color: var(--text);
+  font-size: calc(40 * var(--du));
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: calc(-1.25 * var(--du));
+  font-variant-numeric: tabular-nums;
+  animation: priceIn 320ms var(--ease) both;
+}
+
+.priceNote {
+  color: var(--text-tertiary);
+  font-size: calc(14 * var(--du));
+  font-weight: 500;
+  line-height: 1.4286;
+}
+
+.features {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: calc(12 * var(--du));
+}
+
+.feature {
+  display: flex;
+  align-items: flex-start;
+  gap: calc(10 * var(--du));
+  color: var(--text-secondary);
+  font-size: calc(16 * var(--du));
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.featureIcon {
+  display: flex;
+  flex: 0 0 auto;
+  width: calc(20 * var(--du));
+  height: calc(20 * var(--du));
+  margin-top: calc(2 * var(--du));
+  color: var(--text);
+}
+
+.action {
+  width: 100%;
+}
+
+.footnote {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(24 * var(--du));
+  padding: calc(32 * var(--du));
+  background: var(--surface);
+  border-radius: var(--r-card);
+}
+
+.footnoteText {
+  display: flex;
+  flex-direction: column;
+  gap: calc(4 * var(--du));
+}
+
+.footnoteTitle {
+  color: var(--text);
+  font-size: calc(20 * var(--du));
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: calc(-0.5 * var(--du));
+}
+
+.footnoteNote {
+  max-width: calc(720 * var(--du));
+  color: var(--text-secondary);
+  font-size: calc(16 * var(--du));
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+@keyframes priceIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 1023px) {
+  .plans {
+    grid-template-columns: 1fr;
+    gap: calc(16 * var(--du));
+  }
+
+  .plan {
+    padding: calc(24 * var(--du));
+  }
+
+  .price {
+    font-size: calc(36 * var(--du));
+  }
+
+  .footnote {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: calc(24 * var(--du));
+  }
+}
+
+@media (max-width: 767px) {
+  .controls {
+    width: 100%;
+  }
+
+  .group {
+    width: 100%;
+  }
+
+  .segment {
+    flex: 1;
+    justify-content: center;
+    padding: calc(10 * var(--du)) calc(12 * var(--du));
+    font-size: max(12px, calc(13 * var(--du)));
+  }
+
+  .plan {
+    padding: calc(20 * var(--du));
+    border-radius: var(--r-tile);
+    gap: calc(20 * var(--du));
+  }
+
+  .price {
+    font-size: calc(32 * var(--du));
+  }
+
+  .feature {
+    font-size: calc(14 * var(--du));
+    line-height: 1.4286;
+  }
+
+  .footnote {
+    padding: calc(20 * var(--du));
+    border-radius: var(--r-tile);
+  }
+
+  .footnoteTitle {
+    font-size: calc(17 * var(--du));
+  }
+
+  .footnoteNote {
+    font-size: calc(14 * var(--du));
+  }
+}

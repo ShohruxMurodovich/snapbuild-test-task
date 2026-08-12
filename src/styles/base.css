@@ -1,0 +1,110 @@
+/* Сброс и базовая типографика */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  /* Плавный скролл по анкорам, как в исходнике */
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+html,
+body {
+  background-color: var(--bg);
+}
+
+body {
+  min-height: 100vh;
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Ни одна секция не должна создавать горизонтальный скролл документа */
+  overflow-x: clip;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--text);
+  font-weight: 500;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+img,
+svg,
+picture,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+/* У картинок в разметке заданы width/height (чтобы браузер зарезервировал
+   место), поэтому высоту нужно вернуть в auto — иначе атрибут перебивает
+   aspect-ratio из компонентов. */
+img {
+  height: auto;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+}
+
+:focus-visible {
+  outline: 2px solid #ff6ba7;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: #ffd9e6;
+  color: #000;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

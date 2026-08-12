@@ -1,0 +1,214 @@
+/*
+ * НОВАЯ СЕКЦИЯ 1. Сценарии по командам.
+ *
+ * Структурно отличается от соседней секции возможностей: там список пунктов и
+ * тёмная панель с медиа, здесь — вертикальный переключатель команд и белая
+ * карточка с задачей, списком и тремя метриками. Из дизайн-системы взяты
+ * пилюли-табы, радиус карточки 24, пастельный градиент для маркеров и
+ * градиентный текст для цифр.
+ */
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, calc(280 * var(--du))) minmax(0, 1fr);
+  gap: calc(32 * var(--du));
+  align-items: start;
+}
+
+.roles {
+  display: flex;
+  flex-direction: column;
+  gap: calc(4 * var(--du));
+}
+
+.role {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: calc(12 * var(--du));
+  padding: calc(16 * var(--du)) calc(20 * var(--du));
+  border-radius: calc(16 * var(--du));
+  color: var(--text-tertiary);
+  font-size: calc(18 * var(--du));
+  font-weight: 500;
+  line-height: 1.4;
+  text-align: left;
+  transition:
+    background-color var(--dur-fast) ease,
+    color var(--dur-fast) ease;
+}
+
+.roleActive {
+  background: var(--surface);
+  color: var(--text);
+}
+
+.marker {
+  width: calc(8 * var(--du));
+  height: calc(8 * var(--du));
+  border-radius: 50%;
+  background: var(--stroke-strong);
+  transition: background var(--dur-fast) ease;
+}
+
+.roleActive .marker {
+  background: var(--brand-flat);
+}
+
+@media (hover: hover) {
+  .role:not(.roleActive):hover {
+    background: rgba(255, 255, 255, 0.6);
+    color: var(--text);
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: calc(24 * var(--du));
+  padding: calc(40 * var(--du));
+  background: var(--surface);
+  border-radius: var(--r-card);
+}
+
+.task {
+  color: var(--text);
+  font-size: calc(28 * var(--du));
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: calc(-1 * var(--du));
+}
+
+.points {
+  display: flex;
+  flex-direction: column;
+  gap: calc(12 * var(--du));
+}
+
+.point {
+  display: flex;
+  align-items: flex-start;
+  gap: calc(12 * var(--du));
+  color: var(--text-secondary);
+  font-size: calc(16 * var(--du));
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.bullet {
+  flex: 0 0 auto;
+  width: calc(6 * var(--du));
+  height: calc(6 * var(--du));
+  margin-top: calc(9 * var(--du));
+  border-radius: 50%;
+  background: var(--brand-flat);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: calc(24 * var(--du));
+  padding-top: calc(24 * var(--du));
+  border-top: 1px solid var(--divider);
+}
+
+.statValue {
+  font-size: calc(32 * var(--du));
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: calc(-1 * var(--du));
+}
+
+.statLabel {
+  margin-top: calc(4 * var(--du));
+  color: var(--text-secondary);
+  font-size: calc(14 * var(--du));
+  font-weight: 500;
+  line-height: 1.4286;
+}
+
+@media (max-width: 1023px) {
+  .layout {
+    grid-template-columns: 1fr;
+    gap: calc(20 * var(--du));
+  }
+
+  /* На узких экранах переключатель превращается в горизонтальную полосу
+     пилюль — тот же приём, что у форматов в секции возможностей. */
+  .roles {
+    flex-direction: row;
+    gap: calc(8 * var(--du));
+    scroll-snap-type: inline mandatory;
+  }
+
+  .role {
+    flex: 0 0 auto;
+    padding: calc(10 * var(--du)) calc(16 * var(--du));
+    border-radius: var(--r-control);
+    background: var(--surface-sunken);
+    font-size: calc(16 * var(--du));
+    scroll-snap-align: start;
+  }
+
+  .roleActive {
+    background: var(--text);
+    color: #fff;
+  }
+
+  .marker {
+    display: none;
+  }
+
+  .card {
+    padding: calc(28 * var(--du));
+    gap: calc(20 * var(--du));
+  }
+
+  .task {
+    font-size: calc(24 * var(--du));
+  }
+
+  .stats {
+    gap: calc(16 * var(--du));
+  }
+
+  .statValue {
+    font-size: calc(28 * var(--du));
+  }
+}
+
+@media (max-width: 767px) {
+  .card {
+    padding: calc(20 * var(--du));
+    border-radius: var(--r-tile);
+  }
+
+  .task {
+    font-size: calc(20 * var(--du));
+    letter-spacing: calc(-0.5 * var(--du));
+  }
+
+  .point {
+    font-size: calc(14 * var(--du));
+    line-height: 1.4286;
+  }
+
+  .bullet {
+    margin-top: calc(7 * var(--du));
+  }
+
+  .stats {
+    grid-template-columns: 1fr;
+    gap: calc(12 * var(--du));
+    padding-top: calc(16 * var(--du));
+  }
+
+  .statValue {
+    font-size: calc(24 * var(--du));
+  }
+
+  .statLabel {
+    margin-top: 0;
+    font-size: max(12px, calc(13 * var(--du)));
+  }
+}

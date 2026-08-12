@@ -1,0 +1,20 @@
+.grid {
+  --card-aspect: 4 / 3;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: calc(32 * var(--du));
+}
+
+@media (max-width: 1023px) {
+  .grid {
+    gap: calc(20 * var(--du));
+  }
+}
+
+@media (max-width: 767px) {
+  .grid {
+    --card-aspect: 3 / 2;
+    grid-template-columns: 1fr;
+    gap: calc(16 * var(--du));
+  }
+}

@@ -1,0 +1,107 @@
+/**
+ * Дизайн-токены, снятые с snapbuild.ru.
+ *
+ * Ключевая особенность исходной вёрстки: она не использует контейнер с
+ * max-width. Все размеры заданы как доля вьюпорта относительно фиксированной
+ * ширины макета — calc(N / 14.4 * 1vw) на десктопе (макет 1440),
+ * calc(N / 8.1 * 1vw) на планшете (810) и calc(N / 3.75 * 1vw) на мобильном
+ * (375). Выше 1440 значения фиксируются в пикселях.
+ *
+ * Здесь то же самое собрано в одну переменную --du («design unit»): любой
+ * размер из макета пишется как calc(N * var(--du)) и сам масштабируется по
+ * брейкпоинтам, а min(1vw, 14.4px) даёт фиксацию на широких экранах.
+ */
+
+:root {
+  /* --- масштаб --- */
+  --du: calc(min(1vw, 14.4px) / 14.4);
+
+  /* --- поверхности --- */
+  --bg: #f5f5f6;
+  --surface: #ffffff;
+  --surface-muted: #fafafa;
+  --surface-sunken: #f5f5f7;
+
+  /* --- текст --- */
+  --text: #000000;
+  --text-secondary: #5a5b62;
+  --text-tertiary: rgba(0, 0, 0, 0.6);
+
+  /* --- состояния формы --- */
+  --error: #d92d5e;
+  --error-bg: rgba(217, 45, 94, 0.06);
+
+  /* --- линии --- */
+  --stroke: rgba(0, 0, 0, 0.05);
+  --stroke-soft: rgba(0, 0, 0, 0.045);
+  --stroke-strong: rgba(0, 0, 0, 0.1);
+  --divider: rgba(0, 0, 0, 0.06);
+  --divider-card: rgba(0, 0, 0, 0.08);
+
+  /* --- фирменные градиенты --- */
+  --brand: linear-gradient(90deg, #ff6d3c 0%, #ff6ba7 46%, #bb6dff 100%);
+  --brand-diag: linear-gradient(135deg, #ff6d3d 0%, #ff6ca7 52%, #bb6dff 100%);
+  --brand-flat: linear-gradient(91.76deg, #ff6d3d 1.5%, #ff6ca7 56.4%, #bb6dff 103.9%);
+  --pastel: linear-gradient(135deg, #ffcdb3 0%, #ffa4b6 40%, #ffb2e9 70%, #d4d6ff 100%);
+  --aurora-hero: linear-gradient(
+    157deg,
+    #ffffff 17.71%,
+    #ffcdb3 43.16%,
+    #ffa4b6 58.2%,
+    #ffb2e9 73.32%,
+    #d4d6ff 90.8%,
+    #ffffff 103.16%
+  );
+  --aurora-cta: linear-gradient(
+    157deg,
+    #ffffff 11%,
+    #ffcdb3 33%,
+    #ffa4b6 53%,
+    #ffb2e9 67%,
+    #d4d6ff 90%,
+    #d4d6ff 97%,
+    #ffffff 100%
+  );
+  --tile-glow: radial-gradient(
+    circle at 50% 100%,
+    rgba(255, 109, 61, 0.35),
+    rgba(255, 108, 167, 0.2) 45%,
+    rgba(187, 109, 255, 0.08) 72%,
+    transparent 100%
+  );
+
+  /* --- радиусы (в исходнике фиксированные, не плавающие) --- */
+  --r-card: 24px;
+  --r-tile: 20px;
+  --r-panel: 16px;
+  --r-control: 12px;
+  --r-pill: 999px;
+
+  /* --- тени --- */
+  --shadow-bar: 0 6px 22px rgba(29, 22, 40, 0.055);
+  --shadow-pill: 0 4px 16px rgba(0, 0, 0, 0.04);
+
+  /* --- движение --- */
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-control: cubic-bezier(0.55, 0, 0.1, 1);
+  --dur-fast: 0.2s;
+  --dur-open: 0.367s;
+
+  /* --- типографика --- */
+  --font-sans: 'Inter Tight Variable', 'Inter Tight', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Планшет: макет 810 */
+@media (max-width: 1023px) {
+  :root {
+    --du: calc(1vw / 8.1);
+  }
+}
+
+/* Мобильный: макет 375 */
+@media (max-width: 767px) {
+  :root {
+    --du: calc(1vw / 3.75);
+  }
+}

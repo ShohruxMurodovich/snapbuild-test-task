@@ -1,0 +1,173 @@
+/*
+ * Роадмап: горизонтальная лента с линией времени. Линия рисуется двумя
+ * псевдоэлементами трека — серая на всю длину и розовая до пройденного
+ * пункта (ширина считается в колонках, как в исходнике).
+ */
+
+.roadmap {
+  gap: calc(56 * var(--du));
+  overflow: hidden;
+}
+
+.scroller {
+  overflow-x: auto;
+  scrollbar-width: none;
+  cursor: grab;
+}
+
+.scroller::-webkit-scrollbar {
+  display: none;
+}
+
+.dragging {
+  cursor: grabbing;
+  user-select: none;
+}
+
+.track {
+  --col: calc(320 * var(--du));
+  --pad: calc(40 * var(--du));
+  position: relative;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: var(--col);
+  width: max-content;
+  padding-inline: var(--pad);
+}
+
+.track::before,
+.track::after {
+  content: '';
+  position: absolute;
+  top: calc(16 * var(--du));
+  height: 1px;
+}
+
+.track::before {
+  left: var(--pad);
+  right: var(--pad);
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.track::after {
+  left: var(--pad);
+  width: calc(var(--progress, 0) * var(--col) + calc(4 * var(--du)));
+  background: #ff68a4;
+}
+
+.item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(48 * var(--du));
+}
+
+.dot {
+  position: relative;
+  flex: 0 0 auto;
+  width: calc(32 * var(--du));
+  height: calc(32 * var(--du));
+  margin-left: calc(-12 * var(--du));
+  border-radius: 50%;
+  background: var(--bg);
+}
+
+.halo,
+.core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.halo {
+  width: calc(20 * var(--du));
+  height: calc(20 * var(--du));
+  background: rgba(0, 0, 0, 0.6);
+  opacity: 0.12;
+}
+
+.core {
+  width: calc(6 * var(--du));
+  height: calc(6 * var(--du));
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.reached .halo {
+  background: var(--brand-flat);
+  opacity: 0.18;
+}
+
+.reached .core {
+  background: var(--brand-flat);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: calc(117 * var(--du));
+  padding-right: calc(64 * var(--du));
+}
+
+.name {
+  color: var(--text);
+  font-size: calc(16 * var(--du));
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: calc(-0.5 * var(--du));
+}
+
+.text {
+  margin-top: calc(8 * var(--du));
+  color: var(--text-secondary);
+  font-size: calc(14 * var(--du));
+  font-weight: 500;
+  line-height: 1.4286;
+}
+
+.date {
+  margin-top: auto;
+  padding-top: calc(12 * var(--du));
+  color: var(--text);
+  font-size: calc(14 * var(--du));
+  font-weight: 500;
+  line-height: 1.4286;
+}
+
+@media (max-width: 1023px) {
+  .roadmap {
+    gap: calc(40 * var(--du));
+  }
+
+  .track {
+    --col: calc(280 * var(--du));
+    --pad: calc(20 * var(--du));
+  }
+
+  .item {
+    gap: calc(32 * var(--du));
+  }
+}
+
+@media (max-width: 767px) {
+  .roadmap {
+    gap: calc(24 * var(--du));
+  }
+
+  .track {
+    --col: calc(240 * var(--du));
+    --pad: calc(16 * var(--du));
+  }
+
+  .item {
+    gap: calc(24 * var(--du));
+  }
+
+  .body {
+    min-height: calc(140 * var(--du));
+    padding-right: calc(24 * var(--du));
+  }
+}

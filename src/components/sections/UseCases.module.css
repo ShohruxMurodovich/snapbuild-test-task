@@ -1,0 +1,209 @@
+/*
+ * Возможности по форматам. Два уровня переключения, как в исходнике:
+ * пилюли форматов (сайты / изображения / видео / баннеры / презентации) и
+ * список пунктов, который раскрывает описание и меняет картинку в панели.
+ * Подчёркивание активного пункта — пастельный градиент дизайн-системы.
+ */
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: calc(20 * var(--du));
+}
+
+.tabs {
+  display: inline-flex;
+  gap: calc(8 * var(--du));
+}
+
+.tab {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  padding: calc(10 * var(--du)) calc(11.25 * var(--du));
+  border-radius: var(--r-control);
+  background: var(--surface-sunken);
+  color: var(--text);
+  font-size: calc(16 * var(--du));
+  font-weight: 500;
+  line-height: 1.5;
+  white-space: nowrap;
+  transition:
+    background-color var(--dur-fast) ease,
+    color var(--dur-fast) ease;
+}
+
+.tabActive {
+  background: var(--text);
+  color: #fff;
+}
+
+@media (hover: hover) {
+  .tab:not(.tabActive):hover {
+    background: #ebebee;
+  }
+}
+
+.body {
+  display: grid;
+  grid-template-columns: minmax(0, calc(333 * var(--du))) minmax(0, 1fr);
+  gap: calc(32 * var(--du));
+  align-items: stretch;
+}
+
+.points {
+  display: flex;
+  flex-direction: column;
+}
+
+.point {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: calc(20 * var(--du)) 0;
+  text-align: left;
+}
+
+.point:first-child {
+  padding-top: 0;
+}
+
+/* Линейка под пунктом; у активного — фирменный пастельный градиент. */
+.point::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--stroke-strong);
+}
+
+.pointActive::after {
+  background: linear-gradient(90deg, #ffcdb3 0%, #ffa4b6 38%, #ffb2e9 68%, #d4d6ff 100%);
+}
+
+.pointTitle {
+  color: rgba(0, 0, 0, 0.4);
+  font-size: calc(20 * var(--du));
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: calc(-0.5 * var(--du));
+  transition: color 0.3s ease;
+}
+
+.pointActive .pointTitle {
+  color: var(--text);
+}
+
+.pointText {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  color: var(--text-secondary);
+  font-size: calc(14 * var(--du));
+  line-height: 1.4286;
+  transition:
+    grid-template-rows 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.4s ease;
+}
+
+.pointActive .pointText {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.pointText > span {
+  display: block;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.panel {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border-radius: calc(12 * var(--du));
+  background-color: #0d0d0d;
+  background-image: var(--pastel);
+}
+
+.media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 320ms var(--ease);
+}
+
+.mediaActive {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (max-width: 1023px) {
+  .header {
+    gap: calc(16 * var(--du));
+  }
+
+  /* Полоса форматов уезжает в горизонтальный скролл, а не переносится. */
+  .tabs {
+    display: flex;
+    flex-wrap: nowrap;
+    max-width: 100%;
+    gap: calc(6 * var(--du));
+  }
+
+  .body {
+    display: flex;
+    flex-direction: column;
+    gap: calc(12 * var(--du));
+  }
+
+  /* Панель наверху, активный пункт сразу под ней — как в исходнике. */
+  .panel {
+    order: 0;
+  }
+
+  .points {
+    order: 1;
+  }
+
+  .point {
+    padding: calc(16 * var(--du)) 0;
+  }
+
+  .point:first-child {
+    padding-top: calc(16 * var(--du));
+  }
+
+  .pointTitle {
+    font-size: calc(18 * var(--du));
+  }
+
+  .pointText {
+    font-size: calc(14 * var(--du));
+  }
+}
+
+@media (max-width: 767px) {
+  .tab {
+    padding: calc(6 * var(--du)) calc(12 * var(--du));
+    font-size: calc(14 * var(--du));
+  }
+
+  .panel {
+    border-radius: 6px;
+  }
+
+  .pointTitle {
+    font-size: calc(16 * var(--du));
+    line-height: calc(22 / 16);
+    letter-spacing: 0;
+  }
+}

@@ -1,0 +1,144 @@
+/*
+ * Лента клиентов. На ширине от 768px это статичный центрированный ряд,
+ * а на мобильном — бесконечная бегущая строка (второй набор логотипов
+ * продублирован и скрыт от скринридеров), как в исходнике.
+ */
+
+.logos {
+  display: flex;
+  flex-direction: column;
+  gap: calc(24 * var(--du));
+  margin-top: 32px;
+  overflow: hidden;
+}
+
+.track {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(107 * var(--du));
+  padding-inline: calc(40 * var(--du));
+}
+
+.group {
+  display: contents;
+}
+
+/* От 768px это статичный ряд, второй (дублирующий) набор не нужен. */
+.groupCopy {
+  display: none;
+}
+
+.item {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  color: #1c1c1f;
+}
+
+/* Каскад логотипов: в исходнике он на IntersectionObserver с задержкой
+   90ms × индекс. Здесь то же самое на scroll-driven анимации — сдвигаем не
+   задержку, а диапазон появления каждого логотипа. */
+@supports (animation-timeline: view()) {
+  @media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+    .item {
+      animation: logoReveal 1ms var(--ease) both;
+      animation-timeline: view();
+      animation-range: entry calc(var(--logo-index, 0) * 12%) entry
+        calc(45% + var(--logo-index, 0) * 12%);
+    }
+  }
+}
+
+.item img {
+  width: auto;
+  height: calc(var(--logo-height) * var(--du));
+}
+
+.eyebrow {
+  padding-inline: calc(40 * var(--du));
+  color: var(--text-tertiary);
+  font-size: calc(16 * var(--du));
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: calc(-0.5 * var(--du));
+  text-align: center;
+}
+
+@keyframes logoReveal {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 1023px) {
+  .track {
+    gap: calc(74 * var(--du));
+    padding-inline: calc(20 * var(--du));
+  }
+
+  .eyebrow {
+    padding-inline: calc(20 * var(--du));
+  }
+}
+
+@media (max-width: 767px) {
+  .logos {
+    gap: calc(24 * var(--du));
+    margin-top: calc(16 * var(--du));
+  }
+
+  .track {
+    gap: 0;
+    width: max-content;
+    max-width: none;
+    justify-content: flex-start;
+    padding: 0;
+    animation: marquee 28s linear infinite;
+  }
+
+  .group,
+  .groupCopy {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: flex-end;
+  }
+
+  .item {
+    /* На мобильном лента едет сама — поштучное появление не нужно. */
+    margin-inline: calc(20 * var(--du));
+    align-items: flex-end;
+    animation: none;
+  }
+
+  .item img {
+    height: calc(var(--logo-height) * 1.25 * var(--du));
+  }
+
+  .eyebrow {
+    padding-inline: calc(16 * var(--du));
+    font-size: calc(14 * var(--du));
+    line-height: 1.4286;
+    letter-spacing: 0;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+  }
+}
