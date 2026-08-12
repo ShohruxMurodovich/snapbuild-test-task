@@ -160,7 +160,7 @@
     background-color var(--dur-fast) ease,
     border-color var(--dur-fast) ease,
     box-shadow var(--dur-fast) ease,
-    transform var(--dur-fast) ease,
+    scale var(--dur-fast) ease,
     opacity var(--dur-fast) ease;
 }
 
@@ -183,15 +183,14 @@
 }
 
 @media (hover: hover) {
+  /* Без подъёма: при наведении меняется только фон, как в исходнике
+     (там у кнопок анимируются background / color / scale и блик по тексту). */
   .sb-btn--light:hover {
     background: var(--surface-sunken);
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-pill);
   }
 
   .sb-btn--dark:hover {
     background: #242424;
-    transform: translateY(-1px);
   }
 
   .sb-btn--outline:hover {
@@ -204,7 +203,6 @@
    (.dds-btn:active, .dds-app-preview-cta:active, .dds-launch-btn:active,
    .dds-tabs-tab:active). */
 .sb-btn:active {
-  transform: translateY(0);
   scale: 0.975;
   transition-duration: 80ms;
 }

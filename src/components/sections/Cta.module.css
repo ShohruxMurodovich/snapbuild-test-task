@@ -154,19 +154,17 @@
   font-weight: 600;
   line-height: calc(20 / 14);
   transition:
-    transform var(--dur-fast) ease,
+    scale var(--dur-fast) ease,
     box-shadow var(--dur-fast) ease;
 }
 
 @media (hover: hover) {
   .button:hover {
-    transform: translateY(-1px);
     box-shadow: var(--shadow-pill);
   }
 }
 
 .button:active {
-  transform: translateY(0);
   scale: 0.975;
 }
 

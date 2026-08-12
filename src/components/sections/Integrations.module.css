@@ -26,14 +26,16 @@
   padding: calc(20 * var(--du));
   background: var(--surface);
   border-radius: var(--r-card);
+  border: 1px solid transparent;
   transition:
-    transform var(--dur-fast) var(--ease),
-    box-shadow var(--dur-fast) var(--ease);
+    border-color var(--dur-fast) ease,
+    box-shadow var(--dur-fast) ease;
 }
 
 @media (hover: hover) {
+  /* Без подъёма — только мягкая рамка и тень. */
   .tool:hover {
-    transform: translateY(-2px);
+    border-color: var(--stroke);
     box-shadow: var(--shadow-pill);
   }
 }

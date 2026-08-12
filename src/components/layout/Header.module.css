@@ -82,7 +82,7 @@
   line-height: 1.4;
   transition:
     background-color 180ms ease,
-    transform 180ms ease;
+    scale 180ms ease;
 }
 
 @media (hover: hover) {
@@ -92,12 +92,10 @@
 
   .cta:hover {
     background: #242424;
-    transform: translateY(-1px);
   }
 }
 
 .cta:active {
-  transform: translateY(0);
   scale: 0.975;
 }
 

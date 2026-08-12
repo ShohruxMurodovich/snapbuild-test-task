@@ -41,13 +41,16 @@
   font-weight: 600;
   transition:
     background-color 180ms ease,
-    transform 180ms ease;
+    scale 180ms ease;
+}
+
+.button:active {
+  scale: 0.975;
 }
 
 @media (hover: hover) {
   .button:hover {
     background: #242424;
-    transform: translateY(-1px);
   }
 }
 

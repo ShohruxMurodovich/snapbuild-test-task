@@ -75,19 +75,17 @@
   line-height: calc(20 / 14);
   animation: copyFade 1100ms var(--ease) 420ms both;
   transition:
-    transform var(--dur-fast) ease,
+    scale var(--dur-fast) ease,
     box-shadow var(--dur-fast) ease;
 }
 
 @media (hover: hover) {
   .cta:hover {
-    transform: translateY(-1px);
     box-shadow: var(--shadow-pill);
   }
 }
 
 .cta:active {
-  transform: translateY(0);
   scale: 0.975;
 }
 

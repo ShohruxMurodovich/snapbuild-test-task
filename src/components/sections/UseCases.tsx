@@ -7,16 +7,37 @@ import { useCases } from '@/content/original';
 import styles from './UseCases.module.css';
 
 const SWIPE_THRESHOLD = 44;
+/** Должна совпадать с длительностью mediaIn в UseCases.module.css. */
+const MEDIA_FADE_MS = 900;
 
 export function UseCases() {
   const [tabIndex, setTabIndex] = useState(0);
   const [pointIndex, setPointIndex] = useState(0);
   const [swipeDir, setSwipeDir] = useState<'next' | 'prev' | null>(null);
+  /** Предыдущая картинка: лежит под новой, пока та проявляется. */
+  const [previousImage, setPreviousImage] = useState<string | null>(null);
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const swipeStart = useRef<number | null>(null);
+  const fadeTimer = useRef<number | undefined>(undefined);
 
   const tabs = useCases.tabs;
   const activeTab = tabs[tabIndex];
+  const currentImage = activeTab.points[pointIndex].image;
+
+  /*
+   * Уходящая картинка теряет класс вместе с анимацией, поэтому её собственный
+   * fade-out браузер не отыгрывает — на миг просвечивала тёмная подложка
+   * панели. Поэтому предыдущий кадр рендерим отдельным слоем снизу и убираем
+   * только когда новый уже полностью проявился.
+   */
+  const keepPrevious = (image: string) => {
+    if (image === currentImage) return;
+    setPreviousImage(currentImage);
+    window.clearTimeout(fadeTimer.current);
+    fadeTimer.current = window.setTimeout(() => setPreviousImage(null), MEDIA_FADE_MS + 60);
+  };
+
+  useEffect(() => () => window.clearTimeout(fadeTimer.current), []);
 
   /*
    * Картинки остальных форматов подгружаем в простое, после первой отрисовки.
@@ -47,12 +68,16 @@ export function UseCases() {
   }, []);
 
   const selectTab = (index: number) => {
+    if (index === tabIndex) return;
+    keepPrevious(tabs[index].points[0].image);
     setTabIndex(index);
     setPointIndex(0);
     setSwipeDir(null);
   };
 
   const selectPoint = (index: number, dir: 'next' | 'prev' | null = null) => {
+    if (index === pointIndex) return;
+    keepPrevious(activeTab.points[index].image);
     setPointIndex(index);
     setSwipeDir(dir);
   };
@@ -155,6 +180,18 @@ export function UseCases() {
             swipeStart.current = null;
           }}
         >
+          {previousImage ? (
+            <img
+              className={styles.previousMedia}
+              src={asset(previousImage)}
+              alt=""
+              aria-hidden="true"
+              width={1920}
+              height={1080}
+              decoding="async"
+            />
+          ) : null}
+
           {activeTab.points.map((point, index) => (
             <img
               key={point.image}
