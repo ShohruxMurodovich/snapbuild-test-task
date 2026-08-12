@@ -42,22 +42,21 @@
   color: #1c1c1f;
 }
 
-/* Каскад логотипов: в исходнике он на IntersectionObserver с задержкой
-   90ms × индекс. Здесь то же самое на scroll-driven анимации — сдвигаем не
-   задержку, а диапазон появления каждого логотипа. */
-@supports (animation-timeline: view()) {
-  @media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
-    .item {
-      animation: logoReveal 1ms var(--ease) both;
-      animation-timeline: view();
-      /*
-       * Конец диапазона считаем от cover, а не от entry: полоса логотипов
-       * низкая, её entry укладывается в ~80px прокрутки — каскад успевал
-       * отыграть за один кадр. Через cover он растягивается примерно на 300px.
-       */
-      animation-range: entry calc(var(--logo-index, 0) * 5%) cover
-        calc(14% + var(--logo-index, 0) * 4%);
-    }
+/*
+ * Каскад логотипов: 520ms на логотип, задержка 90ms × индекс — как в исходнике.
+ * Прячем логотипы только в состоянии armed, то есть когда JS уже смонтирован
+ * и точно доведёт их до появления. Без JS состояние остаётся idle и логотипы
+ * просто видны.
+ */
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  .armed .item {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  .revealed .item {
+    animation: logoReveal 520ms var(--ease) both;
+    animation-delay: calc(var(--logo-index, 0) * 90ms);
   }
 }
 
