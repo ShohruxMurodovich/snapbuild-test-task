@@ -128,8 +128,15 @@
     animation: none;
   }
 
+  /* На мобильном логотипы примерно 0.77 от десктопного размера — как в
+     исходнике; у «ленты» вместо высоты задана ширина. */
   .item img {
-    height: calc(var(--logo-height) * 1.25 * var(--du));
+    height: calc(var(--logo-height) * 0.77 * var(--du));
+  }
+
+  .item img[data-mobile-width] {
+    width: calc(var(--logo-mobile-width) * var(--du));
+    height: auto;
   }
 
   .eyebrow {

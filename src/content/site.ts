@@ -33,12 +33,25 @@ export const hero = typography({
 
 export const logos = typography({
   eyebrow: 'С платформой работают команды, для которых бренд — закон',
+  /**
+   * width/height — собственные размеры SVG (нужны браузеру для пропорций),
+   * display — высота отрисовки в пикселях макета: в исходнике «циан» и «лента»
+   * показаны крупнее своих файлов (41 и 24 против 22 и 15) — это снято замером.
+   * mobileWidth — «лента» на мобильном задаётся шириной, а не высотой.
+   */
   items: [
-    { src: '/assets/images/logo-ozon.svg', alt: 'OZON', width: 101, height: 22 },
-    { src: '/assets/images/logo-t2.svg', alt: 't2', width: 43, height: 32 },
-    { src: '/assets/images/logo-avito.svg', alt: 'Avito', width: 102, height: 26 },
-    { src: '/assets/images/logo-cian.svg', alt: 'Циан', width: 59, height: 22 },
-    { src: '/assets/images/logo-lenta.svg', alt: 'Лента', width: 64, height: 15 },
+    { src: '/assets/images/logo-ozon.svg', alt: 'OZON', width: 101, height: 22, display: 22 },
+    { src: '/assets/images/logo-t2.svg', alt: 't2', width: 43, height: 32, display: 32 },
+    { src: '/assets/images/logo-avito.svg', alt: 'Avito', width: 102, height: 26, display: 26 },
+    { src: '/assets/images/logo-cian.svg', alt: 'Циан', width: 59, height: 22, display: 41 },
+    {
+      src: '/assets/images/logo-lenta.svg',
+      alt: 'Лента',
+      width: 64,
+      height: 15,
+      display: 24,
+      mobileWidth: 100,
+    },
   ],
 });
 

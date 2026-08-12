@@ -11,6 +11,17 @@
   gap: calc(20 * var(--du));
 }
 
+/*
+ * Заголовок секции длинный, поэтому в исходнике выше 1440 он не 52, а clamp:
+ * от 34 до 46 пикселей макета. Ниже 1440 действует обычный размер .sb-title.
+ */
+@media (min-width: 1440px) {
+  .title {
+    font-size: clamp(calc(34 * var(--du)), 3.2vw, calc(46 * var(--du)));
+    line-height: 1.1;
+  }
+}
+
 .tabs {
   display: inline-flex;
   gap: calc(8 * var(--du));

@@ -11,7 +11,7 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding: 128px 0;
+  padding: calc(128 * var(--dux)) 0;
   border-radius: var(--r-panel);
   background-color: var(--surface);
   background-image: var(--aurora-cta);
@@ -135,7 +135,7 @@
 
 .title {
   color: var(--text);
-  font-size: 40px;
+  font-size: calc(40 * var(--dux));
   font-weight: 600;
   line-height: 1.2308;
   letter-spacing: -0.011em;

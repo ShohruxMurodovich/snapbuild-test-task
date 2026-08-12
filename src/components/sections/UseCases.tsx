@@ -118,7 +118,7 @@ export function UseCases() {
   return (
     <Section id="use-cases">
       <div className={styles.header}>
-        <h2 className="sb-title">{useCases.title}</h2>
+        <h2 className={`sb-title ${styles.title}`}>{useCases.title}</h2>
         <div className={`${styles.tabs} sb-scroller`} role="tablist" aria-label="Форматы материалов">
           {tabs.map((tab, index) => (
             <button

@@ -5,8 +5,8 @@
  */
 
 .faq {
-  /* В исходнике этот отступ фиксированный, не плавающий. */
-  gap: 24px;
+  /* Ниже 1440 фиксированный, выше растёт вместе с макетом. */
+  gap: calc(24 * var(--dux));
 }
 
 .list {
@@ -54,8 +54,8 @@
   flex: 0 0 auto;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
+  width: calc(24 * var(--dux));
+  height: calc(24 * var(--dux));
   color: var(--text);
   transition: transform var(--dur-fast) var(--ease);
 }

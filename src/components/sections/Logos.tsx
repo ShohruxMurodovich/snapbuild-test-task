@@ -16,9 +16,21 @@ function Group({ hidden }: { hidden?: boolean }) {
         <div
           key={`${logo.alt}-${hidden ? 'copy' : 'main'}`}
           className={styles.item}
-          style={{ '--logo-index': index, '--logo-height': logo.height } as CSSProperties}
+          style={
+            {
+              '--logo-index': index,
+              '--logo-height': logo.display,
+              ...('mobileWidth' in logo ? { '--logo-mobile-width': logo.mobileWidth } : {}),
+            } as CSSProperties
+          }
         >
-          <img src={asset(logo.src)} alt={hidden ? '' : logo.alt} width={logo.width} height={logo.height} />
+          <img
+            src={asset(logo.src)}
+            alt={hidden ? '' : logo.alt}
+            width={logo.width}
+            height={logo.height}
+            data-mobile-width={'mobileWidth' in logo ? '' : undefined}
+          />
         </div>
       ))}
     </div>
