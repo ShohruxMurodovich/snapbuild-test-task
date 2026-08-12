@@ -89,6 +89,12 @@
   line-height: 1.5;
 }
 
+/* У «Продукта» и FAQ подзаголовок в исходнике 400, у сравнения и роадмапа — 500.
+   Это несогласованность самого исходника, воспроизводим как есть. */
+.sb-subtitle--regular {
+  font-weight: 400;
+}
+
 @media (max-width: 1023px) {
   .sb-head--inline {
     padding-inline: calc(20 * var(--du));

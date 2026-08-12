@@ -7,7 +7,7 @@ import styles from './Process.module.css';
 export function Process() {
   return (
     <Section id="process">
-      <SectionHead title={process.title} subtitle={process.subtitle} />
+      <SectionHead title={process.title} subtitle={process.subtitle} regularSubtitle />
       <div className={`${styles.grid} sb-stagger`}>
         {process.cards.map((card) => (
           <MediaCard

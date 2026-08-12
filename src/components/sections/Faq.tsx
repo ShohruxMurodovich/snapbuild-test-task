@@ -17,7 +17,7 @@ export function Faq() {
 
   return (
     <Section id="faq" compact className={styles.faq}>
-      <SectionHead title={faq.title} subtitle={faq.subtitle} />
+      <SectionHead title={faq.title} subtitle={faq.subtitle} regularSubtitle />
 
       <div className={`${styles.list} sb-stagger`}>
         {faq.items.map((item, index) => {
