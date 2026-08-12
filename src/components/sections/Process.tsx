@@ -8,9 +8,15 @@ export function Process() {
   return (
     <Section id="process">
       <SectionHead title={process.title} subtitle={process.subtitle} />
-      <div className={styles.grid}>
+      <div className={`${styles.grid} sb-stagger`}>
         {process.cards.map((card) => (
-          <MediaCard key={card.title} image={card.image} title={card.title} text={card.text} />
+          <MediaCard
+            key={card.title}
+            image={card.image}
+            sources={'sources' in card ? card.sources : undefined}
+            title={card.title}
+            text={card.text}
+          />
         ))}
       </div>
     </Section>

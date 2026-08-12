@@ -142,22 +142,39 @@
 /* ---------- кнопки ---------- */
 
 .sb-btn {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: calc(6 * var(--du));
+  overflow: hidden;
+  isolation: isolate;
   border: 1px solid transparent;
   border-radius: var(--r-control);
   padding: calc(14 * var(--du)) calc(20 * var(--du));
-  font-size: calc(14 * var(--du));
+  font-size: max(13px, calc(14 * var(--du)));
   font-weight: 600;
   line-height: calc(20 / 14);
   white-space: nowrap;
   transition:
     background-color var(--dur-fast) ease,
     border-color var(--dur-fast) ease,
+    box-shadow var(--dur-fast) ease,
     transform var(--dur-fast) ease,
     opacity var(--dur-fast) ease;
+}
+
+/* Блик, проезжающий по тёмной кнопке при наведении. */
+.sb-btn--dark::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--btn-shine);
+  opacity: 0.35;
+  transform: translateX(-100%);
+  transition: transform var(--btn-dur) var(--btn-ease);
+  pointer-events: none;
 }
 
 /* Белая кнопка с фирменным градиентом в тексте — главный CTA исходника */
@@ -181,6 +198,7 @@
   .sb-btn--light:hover {
     background: var(--surface-sunken);
     transform: translateY(-1px);
+    box-shadow: var(--shadow-pill);
   }
 
   .sb-btn--dark:hover {
@@ -188,13 +206,21 @@
     transform: translateY(-1px);
   }
 
+  .sb-btn--dark:hover::after {
+    transform: translateX(100%);
+  }
+
   .sb-btn--outline:hover {
     background: rgba(0, 0, 0, 0.04);
+    border-color: rgba(0, 0, 0, 0.18);
   }
 }
 
+/* Нажатие: кнопка «проседает» — состояние есть у всех интерактивных
+   элементов, чтобы клик всегда давал отклик. */
 .sb-btn:active {
-  transform: translateY(0);
+  transform: translateY(0) scale(0.985);
+  transition-duration: 80ms;
 }
 
 .sb-btn:disabled {
@@ -283,6 +309,23 @@
       animation-timeline: view();
       animation-range: entry 0% entry 55%;
     }
+
+    /* Каскад внутри сетки: у каждого элемента своя view-таймлиния, поэтому
+       «задержку» задаём сдвигом диапазона появления, а не animation-delay
+       (в scroll-driven анимациях задержки игнорируются). */
+    .sb-stagger > * {
+      animation: sb-reveal-in 1ms var(--ease) both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 50%;
+    }
+
+    .sb-stagger > *:nth-child(2) { animation-range: entry 6% entry 56%; }
+    .sb-stagger > *:nth-child(3) { animation-range: entry 12% entry 62%; }
+    .sb-stagger > *:nth-child(4) { animation-range: entry 18% entry 68%; }
+    .sb-stagger > *:nth-child(5) { animation-range: entry 24% entry 74%; }
+    .sb-stagger > *:nth-child(6) { animation-range: entry 30% entry 80%; }
+    .sb-stagger > *:nth-child(7) { animation-range: entry 36% entry 86%; }
+    .sb-stagger > *:nth-child(n + 8) { animation-range: entry 42% entry 92%; }
   }
 }
 

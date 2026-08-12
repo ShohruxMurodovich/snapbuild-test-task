@@ -7,11 +7,12 @@ export function Security() {
   return (
     <Section id="features" compact>
       <h2 className="sb-title">{security.title}</h2>
-      <div className={styles.grid}>
+      <div className={`${styles.grid} sb-stagger`}>
         {security.points.map((point) => (
           <MediaCard
             key={point.title}
             image={point.image}
+            sources={point.sources}
             title={point.title}
             text={point.text}
             width={864}

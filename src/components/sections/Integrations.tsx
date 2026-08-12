@@ -10,7 +10,7 @@ export function Integrations() {
 
       <div className={styles.block}>
         <p className="sb-overline">{integrations.toolsTitle}</p>
-        <ul className={styles.tools}>
+        <ul className={`${styles.tools} sb-stagger`}>
           {integrations.tools.map((tool) => {
             const Icon = tool.icon;
             return (
@@ -30,7 +30,7 @@ export function Integrations() {
 
       <div className={styles.block}>
         <p className="sb-overline">{integrations.stepsTitle}</p>
-        <ol className={styles.steps}>
+        <ol className={`${styles.steps} sb-stagger`}>
           {integrations.steps.map((step, index) => (
             <li className={styles.step} key={step.title}>
               <span className={styles.number} aria-hidden="true">

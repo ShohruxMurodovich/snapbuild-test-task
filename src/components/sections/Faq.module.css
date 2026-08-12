@@ -24,7 +24,7 @@
   align-self: start;
   padding: calc(20 * var(--du));
   background: var(--surface-muted);
-  border-radius: var(--r-tile);
+  border-radius: var(--r-card);
   transition: background-color var(--dur-fast) ease;
 }
 

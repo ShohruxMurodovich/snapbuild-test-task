@@ -30,6 +30,8 @@ FILES=(
 
   "84a4450b3827bc21.webp|process-design-system.webp"
   "process-flexible-configuration.webp|process-configuration.webp"
+  "process-flexible-configuration-tablet.webp|process-configuration-tablet.webp"
+  "process-flexible-configuration-mobile.webp|process-configuration-mobile.webp"
   "afe03eb4a67d5dfb.webp|process-compliance.webp"
 
   "use-cases-tab1-item1-v2.webp|use-cases-sites-1.webp"
@@ -54,8 +56,11 @@ FILES=(
   "use-cases-tab5-item4.webp|use-cases-decks-4.webp"
 
   "security-approved-models.webp|security-models.webp"
+  "security-approved-models-mobile-v2.jpg|security-models-mobile.jpg"
   "security-private-cloud.webp|security-cloud.webp"
+  "security-private-cloud-mobile-v2.jpg|security-cloud-mobile.jpg"
   "security-ai-stack.webp|security-stack.webp"
+  "security-ai-stack-mobile-v2.jpg|security-stack-mobile.jpg"
 
   "c3714c375a04149c.webp|cta-aurora-desktop.webp"
   "f38670cf14e4b7dd.webp|cta-aurora-tablet.webp"

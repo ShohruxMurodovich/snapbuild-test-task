@@ -19,6 +19,12 @@ export const process = {
     },
     {
       image: '/assets/images/process-configuration.webp',
+      /* На узких экранах у этой карточки другой кадр: в исходнике для неё
+         отдаются отдельные файлы, иначе центральный объект обрезается. */
+      sources: [
+        { media: '(max-width: 767px)', src: '/assets/images/process-configuration-mobile.webp' },
+        { media: '(max-width: 1023px)', src: '/assets/images/process-configuration-tablet.webp' },
+      ],
       title: 'Гибкая конфигурация',
       text: 'Правила бренда задаются один раз — работают в каждой генерации',
     },
@@ -217,18 +223,21 @@ export const security = {
   points: [
     {
       image: '/assets/images/security-models.webp',
+      sources: [{ media: '(max-width: 767px)', src: '/assets/images/security-models-mobile.jpg' }],
       icon: IconShield,
       title: 'Только одобренные модели',
       text: 'Работаем только с российскими и локализованными моделями, без экспортных ограничений',
     },
     {
       image: '/assets/images/security-cloud.webp',
+      sources: [{ media: '(max-width: 767px)', src: '/assets/images/security-cloud-mobile.jpg' }],
       icon: IconCloud,
       title: 'Ваш контур, ваша юрисдикция',
       text: 'Развертывание в частном облаке с полным соответствием 152-ФЗ и внутренними ИБ-требованиями',
     },
     {
       image: '/assets/images/security-stack.webp',
+      sources: [{ media: '(max-width: 767px)', src: '/assets/images/security-stack-mobile.jpg' }],
       icon: IconLayers,
       title: 'Собственный AI-стек',
       text: 'Вы сами определяете модели, хранилища, доступы и цепочки валидации',

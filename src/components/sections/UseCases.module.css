@@ -141,9 +141,58 @@
   transition: opacity 320ms var(--ease);
 }
 
+/*
+ * Активная картинка появляется анимацией, а не transition: при смене формата
+ * React монтирует другой набор <img>, и transition на свежем элементе не
+ * запускается — анимация же отыгрывает и на монтировании, и при смене класса.
+ */
 .mediaActive {
   opacity: 1;
   visibility: visible;
+  animation: mediaIn 420ms var(--ease) both;
+}
+
+/* Свайп по панели на мобильном: слайд в сторону перелистывания — те же
+   кадры, что у dds-slide-in-next / dds-slide-in-prev в исходнике. */
+.swipeNext .mediaActive {
+  animation: slideInNext 280ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.swipePrev .mediaActive {
+  animation: slideInPrev 280ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes mediaIn {
+  from {
+    opacity: 0;
+    transform: scale(1.02);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes slideInNext {
+  from {
+    opacity: 0;
+    transform: translateX(24%);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes slideInPrev {
+  from {
+    opacity: 0;
+    transform: translateX(-24%);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 @media (max-width: 1023px) {
@@ -199,6 +248,8 @@
 
   .panel {
     border-radius: 6px;
+    /* Вертикальный скролл остаётся браузеру, горизонталь — перелистыванию. */
+    touch-action: pan-y;
   }
 
   .pointTitle {

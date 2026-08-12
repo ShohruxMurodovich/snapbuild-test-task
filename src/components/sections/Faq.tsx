@@ -19,7 +19,7 @@ export function Faq() {
     <Section id="faq" compact className={styles.faq}>
       <SectionHead title={faq.title} subtitle={faq.subtitle} />
 
-      <div className={styles.list}>
+      <div className={`${styles.list} sb-stagger`}>
         {faq.items.map((item, index) => {
           const isOpen = open.includes(index);
           return (

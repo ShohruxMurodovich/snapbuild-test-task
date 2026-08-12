@@ -180,7 +180,7 @@
 @media (max-width: 767px) {
   .card {
     padding: calc(20 * var(--du));
-    border-radius: var(--r-tile);
+    border-radius: var(--r-card);
   }
 
   .task {

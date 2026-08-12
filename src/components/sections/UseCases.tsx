@@ -6,10 +6,14 @@ import { asset } from '@/lib/asset';
 import { useCases } from '@/content/original';
 import styles from './UseCases.module.css';
 
+const SWIPE_THRESHOLD = 44;
+
 export function UseCases() {
   const [tabIndex, setTabIndex] = useState(0);
   const [pointIndex, setPointIndex] = useState(0);
+  const [swipeDir, setSwipeDir] = useState<'next' | 'prev' | null>(null);
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const swipeStart = useRef<number | null>(null);
 
   const tabs = useCases.tabs;
   const activeTab = tabs[tabIndex];
@@ -17,6 +21,29 @@ export function UseCases() {
   const selectTab = (index: number) => {
     setTabIndex(index);
     setPointIndex(0);
+    setSwipeDir(null);
+  };
+
+  const selectPoint = (index: number, dir: 'next' | 'prev' | null = null) => {
+    setPointIndex(index);
+    setSwipeDir(dir);
+  };
+
+  /* Перелистывание картинок пальцем — как в исходнике, только на тач-вводе,
+     чтобы не мешать клику мышью. */
+  const onPointerDown = (event: React.PointerEvent) => {
+    swipeStart.current = event.pointerType === 'touch' ? event.clientX : null;
+  };
+
+  const onPointerUp = (event: React.PointerEvent) => {
+    if (swipeStart.current === null) return;
+    const delta = event.clientX - swipeStart.current;
+    swipeStart.current = null;
+    if (Math.abs(delta) < SWIPE_THRESHOLD) return;
+
+    const last = activeTab.points.length - 1;
+    if (delta < 0) selectPoint(pointIndex === last ? 0 : pointIndex + 1, 'next');
+    else selectPoint(pointIndex === 0 ? last : pointIndex - 1, 'prev');
   };
 
   /* Стрелки и Home/End по полосе форматов — поведение обычного tablist. */
@@ -73,7 +100,7 @@ export function UseCases() {
                 .join(' ')}
               aria-expanded={index === pointIndex}
               aria-controls="uc-panel"
-              onClick={() => setPointIndex(index)}
+              onClick={() => selectPoint(index)}
             >
               <span className={styles.pointTitle}>{point.title}</span>
               <span className={styles.pointText}>
@@ -84,10 +111,21 @@ export function UseCases() {
         </div>
 
         <div
-          className={styles.panel}
+          className={[
+            styles.panel,
+            swipeDir === 'next' && styles.swipeNext,
+            swipeDir === 'prev' && styles.swipePrev,
+          ]
+            .filter(Boolean)
+            .join(' ')}
           id="uc-panel"
           role="tabpanel"
           aria-labelledby={`uc-tab-${activeTab.id}`}
+          onPointerDown={onPointerDown}
+          onPointerUp={onPointerUp}
+          onPointerCancel={() => {
+            swipeStart.current = null;
+          }}
         >
           {activeTab.points.map((point, index) => (
             <img

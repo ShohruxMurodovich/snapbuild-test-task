@@ -39,7 +39,7 @@ export function Pricing() {
         </div>
       </div>
 
-      <div className={styles.plans}>
+      <div className={`${styles.plans} sb-stagger`}>
         {pricing.plans.map((plan) => (
           <article
             className={[styles.plan, plan.featured && 'sb-gradient-border'].filter(Boolean).join(' ')}

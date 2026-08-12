@@ -241,7 +241,7 @@
 
   .plan {
     padding: calc(20 * var(--du));
-    border-radius: var(--r-tile);
+    border-radius: var(--r-card);
     gap: calc(20 * var(--du));
   }
 
@@ -256,7 +256,7 @@
 
   .footnote {
     padding: calc(20 * var(--du));
-    border-radius: var(--r-tile);
+    border-radius: var(--r-card);
   }
 
   .footnoteTitle {
