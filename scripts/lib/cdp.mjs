@@ -100,6 +100,24 @@ export class Session {
     })()`);
   }
 
+  /**
+   * Дождаться картинок перед снимком. Быстрая программная прокрутка не всегда
+   * успевает запустить loading="lazy" (браузер решает это по кадрам), поэтому
+   * недогруженным картинкам сначала переключаем loading в eager — это стартует
+   * загрузку сразу — и только потом ждём.
+   */
+  async waitForImages(timeout = 10000) {
+    return this.evaluate(`(async () => {
+      const deadline = Date.now() + ${timeout};
+      const pending = () => [...document.images].filter((img) => !img.complete);
+      pending().forEach((img) => { img.loading = 'eager'; });
+      while (pending().length > 0 && Date.now() < deadline) {
+        await new Promise((r) => setTimeout(r, 150));
+      }
+      return { total: document.images.length, pending: pending().length };
+    })()`);
+  }
+
   /** Открыть страницу на заданной ширине и прокрутить её целиком
    *  (ленивые картинки успевают загрузиться). */
   async openPage(url, width) {

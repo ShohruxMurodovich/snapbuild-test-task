@@ -20,6 +20,7 @@ await mkdir(outDir, { recursive: true });
 await withChrome(async (session) => {
   for (const width of widths) {
     await session.openPage(url, width);
+    const images = await session.waitForImages();
     await session.freezeAnimations();
     const { data } = await session.send('Page.captureScreenshot', {
       format: 'png',
@@ -28,6 +29,8 @@ await withChrome(async (session) => {
     const file = `${outDir}/page-${width}.png`;
     await writeFile(file, Buffer.from(data, 'base64'));
     const height = await session.evaluate('document.body.scrollHeight');
-    console.log(`${width}×${height} → ${file}`);
+    console.log(
+      `${width}×${height} → ${file} (картинок ${images.total}, не загрузилось ${images.pending})`,
+    );
   }
 });
