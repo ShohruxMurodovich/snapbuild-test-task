@@ -3,11 +3,12 @@
  * продукт, возможности, сравнение, безопасность, роадмап, FAQ.
  */
 
+import { typography } from './typography';
 import { IconCloud, IconLayers, IconShield } from '@/components/ui/icons';
 
 /* ---------- Одна платформа — весь маркетинг ---------- */
 
-export const process = {
+export const process = typography({
   title: 'Одна платформа — весь маркетинг',
   subtitle:
     'Сайты, изображения, видео, баннеры и презентации — из одной идеи, в вашем стиле',
@@ -34,7 +35,7 @@ export const process = {
       text: 'AI не может нарушить бренд: сайты, изображения, видео, баннеры и презентации — строго по вашим правилам',
     },
   ],
-};
+});
 
 /* ---------- Любой контент в фирменном стиле ---------- */
 
@@ -50,7 +51,7 @@ export type UseCaseTab = {
   points: UseCasePoint[];
 };
 
-export const useCases = {
+export const useCases = typography({
   title: 'Любой контент в фирменном стиле за считанные минуты',
   tabs: [
     {
@@ -184,14 +185,14 @@ export const useCases = {
       ],
     },
   ] satisfies UseCaseTab[],
-};
+});
 
 /* ---------- Почему команды выбирают Снэпбилд ---------- */
 
 /** Ячейка таблицы сравнения: текст либо галочка с необязательной подписью. */
 export type CompareCell = string | { check: true; text?: string };
 
-export const compare = {
+export const compare = typography({
   title: 'Почему команды выбирают Снэпбилд',
   subtitle:
     'Вы получаете не редактор, а результат: готовые маркетинговые материалы без проблем с настройками',
@@ -214,11 +215,11 @@ export const compare = {
       cells: ['Нет', 'Промпты + код', 'Дизайн', 'Разработка', 'Полная команда'],
     },
   ] satisfies Array<{ label: string; cells: CompareCell[] }>,
-};
+});
 
 /* ---------- Безопасность без компромиссов ---------- */
 
-export const security = {
+export const security = typography({
   title: 'Безопасность без компромиссов',
   points: [
     {
@@ -243,11 +244,11 @@ export const security = {
       text: 'Вы сами определяете модели, хранилища, доступы и цепочки валидации',
     },
   ],
-};
+});
 
 /* ---------- Каждый день — новый релиз ---------- */
 
-export const roadmap = {
+export const roadmap = typography({
   title: 'Каждый день — новый релиз',
   subtitle: 'Приоритизируем бэклог для ваших целей',
   /**
@@ -318,11 +319,11 @@ export const roadmap = {
       date: 'Ноябрь, 2026',
     },
   ],
-};
+});
 
 /* ---------- Часто задаваемые вопросы ---------- */
 
-export const faq = {
+export const faq = typography({
   title: 'Часто задаваемые вопросы',
   subtitle:
     'Ответы, которые помогут вам принять решение уверенно — без рисков для бренда и безопасности',
@@ -368,4 +369,4 @@ export const faq = {
         'Да. Поддерживается развертывание в изолированной инфраструктуре без доступа к внешней сети. Данные и вычисления остаются внутри вашей корпоративной среды.',
     },
   ],
-};
+});

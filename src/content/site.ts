@@ -3,7 +3,9 @@
  * дополненная ссылками на новые секции (тарифы, отзывы, форма демо).
  */
 
-export const site = {
+import { typography } from './typography';
+
+export const site = typography({
   name: 'снэпбилд',
   title: 'Снэпбилд — платформа для создания маркетинговых материалов на основе дизайн-системы',
   description:
@@ -11,7 +13,7 @@ export const site = {
   email: 'hey@snapbuild.ru',
   telegram: 'https://t.me/snapbuild',
   demoAnchor: '#demo',
-};
+});
 
 export const nav = [
   { label: 'Продукт', href: '#process' },
@@ -21,15 +23,15 @@ export const nav = [
   { label: 'FAQ', href: '#faq' },
 ];
 
-export const hero = {
+export const hero = typography({
   title: 'Платформа, где все создается в рамках вашего бренда и дизайн-системы',
   subtitle:
     'Подключите дизайн-систему к Снэпбилду, чтобы каждый участник команды мог создавать профессиональные материалы в фирменном стиле за минуты, а не дни.',
   cta: 'Начать сейчас',
   screenshotAlt: 'Интерфейс Снэпбилда: чат генерации и библиотека материалов',
-};
+});
 
-export const logos = {
+export const logos = typography({
   eyebrow: 'С платформой работают команды, для которых бренд — закон',
   items: [
     { src: '/assets/images/logo-ozon.svg', alt: 'OZON', width: 101, height: 22 },
@@ -38,14 +40,14 @@ export const logos = {
     { src: '/assets/images/logo-cian.svg', alt: 'Циан', width: 59, height: 22 },
     { src: '/assets/images/logo-lenta.svg', alt: 'Лента', width: 64, height: 15 },
   ],
-};
+});
 
-export const cta = {
+export const cta = typography({
   title: 'Профессиональные материалы в фирменном стиле\nза минуты, а не дни',
   button: 'Начать сейчас',
-};
+});
 
-export const footer = {
+export const footer = typography({
   tagline: 'Платформа, где все создается в рамках вашего бренда и дизайн-системы',
   columns: [
     {
@@ -76,9 +78,9 @@ export const footer = {
     },
   ],
   copyright: '© Сгенерировано в Снэпбилде. Все права защищены.',
-};
+});
 
-export const cookieNotice = {
+export const cookieNotice = typography({
   text: 'Мы используем файлы cookie, чтобы сделать наш сайт лучше. Используя сайт, вы принимаете нашу политику конфиденциальности и соглашение на обработку персональных данных.',
   accept: 'Принять',
-};
+});
