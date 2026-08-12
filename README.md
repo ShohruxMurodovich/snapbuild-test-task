@@ -42,6 +42,10 @@ NEXT_PUBLIC_BASE_PATH=/snapbuild-test-task npm run preview   # http://127.0.0.1:
 Chrome DevTools Protocol через встроенный в Node WebSocket — без puppeteer и playwright
 в зависимостях (`scripts/lib/cdp.mjs`).
 
+GitHub Pages отдаёт содержимое ветки `gh-pages`: `npm run deploy` собирает статику
+с `basePath` и публикует туда `out/`. GitHub Actions не используется намеренно —
+деплой из ветки не требует прав на запись workflow-файлов.
+
 ---
 
 ## Стек
