@@ -5,9 +5,18 @@ type Variant = 'light' | 'dark' | 'outline';
 type CommonProps = {
   children: ReactNode;
   variant?: Variant;
-  /** Текст фирменным градиентом — как у главного CTA исходника. */
+  /** Текст фирменным градиентом с бликом — как у главного CTA исходника. */
   gradientText?: boolean;
   className?: string;
+};
+
+/**
+ * Класс для надписи: у кнопки с градиентным текстом по нему проезжает блик,
+ * у тёмной — тёмный проблеск по белому тексту (оба поведения из исходника).
+ */
+const labelClass = (variant: Variant, gradientText?: boolean) => {
+  if (gradientText) return 'sb-shine-text';
+  return variant === 'dark' ? 'sb-sweep-text' : undefined;
 };
 
 type ButtonProps = CommonProps & Omit<ComponentPropsWithoutRef<'button'>, 'className' | 'children'>;
@@ -27,7 +36,7 @@ export function ButtonLink({
 }: LinkProps) {
   return (
     <a className={classes(variant, className)} {...rest}>
-      <span className={gradientText ? 'sb-gradient' : undefined}>{children}</span>
+      <span className={labelClass(variant, gradientText)}>{children}</span>
     </a>
   );
 }
@@ -43,7 +52,7 @@ export function Button({
 }: ButtonProps) {
   return (
     <button type={type} className={classes(variant, className)} {...rest}>
-      <span className={gradientText ? 'sb-gradient' : undefined}>{children}</span>
+      <span className={labelClass(variant, gradientText)}>{children}</span>
     </button>
   );
 }

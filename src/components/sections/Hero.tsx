@@ -13,7 +13,7 @@ export function Hero() {
               <p className={styles.subtitle}>{hero.subtitle}</p>
             </div>
             <a className={styles.cta} href={site.demoAnchor}>
-              <span className="sb-gradient">{hero.cta}</span>
+              <span className="sb-shine-text">{hero.cta}</span>
             </a>
           </div>
 

@@ -73,9 +73,6 @@
 }
 
 .cta {
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
   padding: 10px 20px;
   border-radius: var(--r-control);
   background: var(--text);
@@ -88,19 +85,6 @@
     transform 180ms ease;
 }
 
-/* Тот же блик, что у тёмных кнопок в дизайн-системе. */
-.cta::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: var(--btn-shine);
-  opacity: 0.35;
-  transform: translateX(-100%);
-  transition: transform var(--btn-dur) var(--btn-ease);
-  pointer-events: none;
-}
-
 @media (hover: hover) {
   .link:hover {
     background: var(--stroke-soft);
@@ -110,14 +94,11 @@
     background: #242424;
     transform: translateY(-1px);
   }
-
-  .cta:hover::after {
-    transform: translateX(100%);
-  }
 }
 
 .cta:active {
-  transform: translateY(0) scale(0.985);
+  transform: translateY(0);
+  scale: 0.975;
 }
 
 /* ---------- бургер и мобильное меню ---------- */

@@ -89,7 +89,7 @@ export function Header() {
 
         <div className={styles.actions}>
           <a className={styles.cta} href={site.demoAnchor}>
-            {hero.cta}
+            <span className="sb-sweep-text">{hero.cta}</span>
           </a>
           <button
             ref={burgerRef}
@@ -113,7 +113,7 @@ export function Header() {
             </a>
           ))}
           <a className={styles.menuCta} href={site.demoAnchor} onClick={close}>
-            {hero.cta}
+            <span className="sb-sweep-text">{hero.cta}</span>
           </a>
         </nav>
       ) : null}

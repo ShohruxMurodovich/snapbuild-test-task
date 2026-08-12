@@ -18,6 +18,93 @@
   color: var(--text);
 }
 
+/*
+ * Живой фон панели: два размытых цветных «блоба» по краям и мягкий световой
+ * блик в центре медленно двигаются — из-за этого градиент в исходнике дышит,
+ * а не стоит на месте. Значения и тайминги (7s / 8s / 6s) сняты с сайта.
+ */
+
+.cta::before,
+.cta::after,
+.shine {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.cta::before {
+  width: 58%;
+  height: 72%;
+  left: -14%;
+  top: -20%;
+  background: radial-gradient(circle, rgba(255, 178, 233, 0.85), rgba(255, 178, 233, 0) 70%);
+  filter: blur(calc(48 * var(--du)));
+  animation: blobA 7s ease-in-out infinite;
+}
+
+.cta::after {
+  width: 64%;
+  height: 78%;
+  right: -18%;
+  bottom: -26%;
+  background: radial-gradient(circle, rgba(212, 214, 255, 0.85), rgba(212, 214, 255, 0) 70%);
+  filter: blur(calc(48 * var(--du)));
+  animation: blobB 8s ease-in-out infinite;
+}
+
+.shine {
+  width: 30%;
+  height: 34%;
+  left: 35%;
+  top: 8%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0) 70%);
+  filter: blur(calc(46 * var(--du)));
+  animation: shine 6s ease-in-out infinite;
+}
+
+@keyframes blobA {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(26%, 30%) scale(1.4);
+  }
+}
+
+@keyframes blobB {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-26%, -25%) scale(1.35);
+  }
+}
+
+@keyframes shine {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translate(-18%, 18%) scale(1.15);
+    opacity: 0.8;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta::before,
+  .cta::after,
+  .shine {
+    animation: none;
+  }
+}
+
 .dust {
   position: absolute;
   inset: 0;
@@ -76,6 +163,11 @@
     transform: translateY(-1px);
     box-shadow: var(--shadow-pill);
   }
+}
+
+.button:active {
+  transform: translateY(0);
+  scale: 0.975;
 }
 
 @media (max-width: 1023px) {

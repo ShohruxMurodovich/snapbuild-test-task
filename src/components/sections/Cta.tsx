@@ -13,10 +13,14 @@ export function Cta() {
         </picture>
       </div>
 
+      {/* Мягкий световой блик поверх «пыли» — в исходнике это отдельный слой,
+          который вместе с двумя блобами медленно двигает градиент. */}
+      <span className={styles.shine} aria-hidden="true" />
+
       <div className={styles.content}>
         <h2 className={styles.title}>{cta.title}</h2>
         <a className={styles.button} href={site.demoAnchor}>
-          <span className="sb-gradient">{cta.button}</span>
+          <span className="sb-shine-text">{cta.button}</span>
         </a>
       </div>
     </section>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Section } from '@/components/ui/Section';
 import { asset } from '@/lib/asset';
 import { useCases } from '@/content/original';
@@ -17,6 +17,34 @@ export function UseCases() {
 
   const tabs = useCases.tabs;
   const activeTab = tabs[tabIndex];
+
+  /*
+   * Картинки остальных форматов подгружаем в простое, после первой отрисовки.
+   * В DOM живёт только активная вкладка, поэтому без этого первое переключение
+   * упиралось бы в сетевой запрос — панель на секунду оставалась бы пустой.
+   * В исходнике та же цель достигнута иначе: там все двадцать картинок лежат
+   * в разметке и грузятся сразу при открытии страницы.
+   */
+  useEffect(() => {
+    const preload = () => {
+      tabs.forEach((tab) => {
+        tab.points.forEach((point) => {
+          const image = new Image();
+          image.src = asset(point.image);
+        });
+      });
+    };
+
+    if (typeof window.requestIdleCallback === 'function') {
+      const id = window.requestIdleCallback(preload, { timeout: 3000 });
+      return () => window.cancelIdleCallback(id);
+    }
+
+    /* Safari до 17 не умеет requestIdleCallback — просто ждём полторы секунды. */
+    const timer = window.setTimeout(preload, 1500);
+    return () => window.clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const selectTab = (index: number) => {
     setTabIndex(index);

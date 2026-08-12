@@ -81,6 +81,9 @@
 
 .head .label {
   align-items: flex-start;
+  /* Ячейка в шапке — колонка, поэтому по вертикали центрирует justify-content.
+     Без этого срабатывало flex-start из .label и «Особенности» прилипали к верху. */
+  justify-content: center;
   color: var(--text-tertiary);
 }
 

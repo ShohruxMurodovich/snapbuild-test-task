@@ -45,6 +45,10 @@
   }
 }
 
+.tab:active {
+  scale: 0.975;
+}
+
 .body {
   display: grid;
   grid-template-columns: minmax(0, calc(333 * var(--du))) minmax(0, 1fr);

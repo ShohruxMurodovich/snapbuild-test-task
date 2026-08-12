@@ -164,18 +164,6 @@
     opacity var(--dur-fast) ease;
 }
 
-/* Блик, проезжающий по тёмной кнопке при наведении. */
-.sb-btn--dark::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: var(--btn-shine);
-  opacity: 0.35;
-  transform: translateX(-100%);
-  transition: transform var(--btn-dur) var(--btn-ease);
-  pointer-events: none;
-}
 
 /* Белая кнопка с фирменным градиентом в тексте — главный CTA исходника */
 .sb-btn--light {
@@ -206,21 +194,92 @@
     transform: translateY(-1px);
   }
 
-  .sb-btn--dark:hover::after {
-    transform: translateX(100%);
-  }
-
   .sb-btn--outline:hover {
     background: rgba(0, 0, 0, 0.04);
     border-color: rgba(0, 0, 0, 0.18);
   }
 }
 
-/* Нажатие: кнопка «проседает» — состояние есть у всех интерактивных
-   элементов, чтобы клик всегда давал отклик. */
+/* Нажатие: scale 0.975 — ровно как в исходнике
+   (.dds-btn:active, .dds-app-preview-cta:active, .dds-launch-btn:active,
+   .dds-tabs-tab:active). */
 .sb-btn:active {
-  transform: translateY(0) scale(0.985);
+  transform: translateY(0);
+  scale: 0.975;
   transition-duration: 80ms;
+}
+
+/* ---------- блик по тексту кнопки ----------
+ *
+ * В исходнике текст кнопки залит двумя слоями: белым блеском на 400% ширины
+ * и фирменным градиентом. При наведении блик проезжает по надписи
+ * (dds-btn-text-shine / dds-btn-text-sweep, 0.75s linear).
+ */
+
+.sb-shine-text {
+  background-image: var(--btn-shine), var(--brand);
+  background-size:
+    400% 100%,
+    100% 100%;
+  background-position:
+    100% 50%,
+    0% 50%;
+  background-repeat: no-repeat, no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Тёмная кнопка: белая надпись, по которой проезжает тёмный проблеск. */
+.sb-sweep-text {
+  background-image: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    #ffffff 37%,
+    #000000 50%,
+    #ffffff 63%,
+    #ffffff 100%
+  );
+  background-size: 400% 100%;
+  background-position: 100% 50%;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+:is(a, button):hover > .sb-shine-text,
+:is(a, button):focus-visible > .sb-shine-text {
+  animation: sb-text-shine 0.75s linear 1;
+}
+
+:is(a, button):hover > .sb-sweep-text,
+:is(a, button):focus-visible > .sb-sweep-text {
+  animation: sb-text-sweep 0.75s linear 1;
+}
+
+@keyframes sb-text-shine {
+  from {
+    background-position:
+      100% 50%,
+      0% 50%;
+  }
+  to {
+    background-position:
+      0% 50%,
+      0% 50%;
+  }
+}
+
+@keyframes sb-text-sweep {
+  from {
+    background-position: 100% 50%;
+  }
+  to {
+    background-position: 0% 50%;
+  }
 }
 
 .sb-btn:disabled {
